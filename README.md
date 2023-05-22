@@ -38,7 +38,7 @@ Example project use Express js (ES6)
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/express-project.git`
+1. Clone the repository: `git clone https://github.com/IrfanArv/express-js-example.git`
 2. Navigate to the project directory: `cd express-sample`
 3. Install the dependencies: `npm install`
 
