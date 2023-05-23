@@ -4,7 +4,9 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import helmet from 'helmet'
 import logger from 'morgan'
+import swaggerUi from 'swagger-ui-express'
 import routes from './routes/index.routes.js'
+import specs from './config/swaggerConfig.js'
 
 dotenv.config()
 const app = express()
@@ -18,6 +20,7 @@ const corsOptions = {
 }
 
 const main = async () => {
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs))
     app.use(logger('dev'))
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())

@@ -56,7 +56,6 @@ Every time you make a migration, you must refactor the migration and model file
     - Create postgres database and configure your database in .env
     - run migration `sequelize db:migrate`
 2. Start the development server: `npm run dev`
-3. Open Client Api App like postman and hit `http://localhost:5005`
 
 ### For Production
 
@@ -66,7 +65,15 @@ Every time you make a migration, you must refactor the migration and model file
     - run migration `sequelize db:migrate`
 2. Build: `npm run build`
 3. Start: `npm run start`
-4. Open Client Api App like postman and hit `http://localhost:5005`
+
+### Use PM2
+
+1. Configure
+    - Copy .env.sample into .env
+    - Create postgres database and configure your database in .env
+    - run migration `sequelize db:migrate`
+2. Build: `npm run build`
+3. Start: `pm2 start dist/app.js`
 
 ## Project Structure
 
