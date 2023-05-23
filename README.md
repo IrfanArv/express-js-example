@@ -17,7 +17,8 @@ Example project use Express js (ES6)
 11. bcrypt: Hashing password
 12. jsonwebtoken: Create JWT Token
 13. Babel: Runtime Javascript
-14. Express Validator: Validasi body param etc.
+14. Babel CLI
+15. Express Validator: Validasi body param etc.
 
 ## Dependencies Development Usage
 
@@ -48,12 +49,24 @@ Every time you make a migration, you must refactor the migration and model file
 
 ## Usage
 
+### For Development
+
 1. Configure
     - Copy .env.sample into .env
     - Create postgres database and configure your database in .env
     - run migration `sequelize db:migrate`
 2. Start the development server: `npm run dev`
 3. Open Client Api App like postman and hit `http://localhost:5005`
+
+### For Production
+
+1. Configure
+    - Copy .env.sample into .env
+    - Create postgres database and configure your database in .env
+    - run migration `sequelize db:migrate`
+2. Build: `npm run build`
+3. Start: `npm run start`
+4. Open Client Api App like postman and hit `http://localhost:5005`
 
 ## Project Structure
 
