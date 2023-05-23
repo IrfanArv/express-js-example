@@ -10,7 +10,7 @@ export async function create(req, res) {
         return res.status(201).send({
             statusCode: 201,
             success: true,
-            message: 'Category created',
+            message: 'Category created successfully',
         })
     } catch (err) {
         return res.status(400).send({
@@ -27,7 +27,6 @@ export async function create(req, res) {
 export async function findAll(req, res) {
     try {
         const getData = await Category.findAll({
-            attributes: ['id', 'name', 'desc'],
             where: {
                 isActive: true,
             },
@@ -36,11 +35,7 @@ export async function findAll(req, res) {
         return res.status(200).send({
             statusCode: 200,
             success: true,
-            message: `${
-                getData.length !== 0
-                    ? 'Data berhasil diambil'
-                    : 'Tidak ada data'
-            }`,
+            message: `${getData.length !== 0 ? 'Success' : 'Data empty'}`,
             data: getData,
         })
     } catch (err) {
@@ -55,31 +50,22 @@ export async function findAll(req, res) {
     }
 }
 
-export async function findByid(req, res) {
+export async function findOne(req, res) {
     try {
-        const id = req.params.id
-
-        const getData = await Category.findByPk(id, {
-            attributes: ['name', 'desc'],
-            where: {
-                isActive: true,
-            },
-            // return with id
-            raw: true,
-        })
+        const getData = await isCategory(req.params.id)
 
         if (!getData) {
             return res.status(404).send({
                 statusCode: 404,
                 success: false,
-                message: 'Data tidak ditemukan, periksa kembali ID nya',
+                message: 'Mismatch ID',
             })
         }
 
         return res.status(200).send({
             statusCode: 200,
             success: true,
-            message: 'Data berhasil diambil',
+            message: 'Success',
             data: getData,
         })
     } catch (err) {
@@ -92,4 +78,90 @@ export async function findByid(req, res) {
             },
         })
     }
+}
+
+export async function updateData(req, res) {
+    try {
+        const id = req.params.id
+        const getData = await isCategory(id)
+
+        if (!getData) {
+            return res.status(404).send({
+                statusCode: 404,
+                success: false,
+                message: 'Mismatch ID',
+            })
+        }
+
+        const { name, desc, isActive } = req.body
+
+        const [updatedRowCount] = await Category.update(
+            { name, desc, isActive },
+            { where: { id } },
+        )
+
+        if (updatedRowCount === 1) {
+            return res.status(200).send({
+                statusCode: 200,
+                success: true,
+                message: 'Data updated successfully',
+            })
+        }
+    } catch (err) {
+        return res.status(400).send({
+            statusCode: 400,
+            success: false,
+            message: 'Failed to update data',
+            data: {
+                errors: err.message,
+            },
+        })
+    }
+}
+
+export async function deleteData(req, res) {
+    try {
+        const id = req.params.id
+        const getData = await isCategory(id)
+
+        if (!getData) {
+            return res.status(404).send({
+                statusCode: 404,
+                success: false,
+                message: 'Mismatch ID',
+            })
+        }
+
+        await Category.destroy({
+            where: {
+                id: id,
+            },
+        })
+
+        return res.status(200).send({
+            statusCode: 200,
+            success: true,
+            message: 'Data deleted successfully',
+        })
+    } catch (err) {
+        return res.status(400).send({
+            statusCode: 400,
+            success: false,
+            message: 'Bad Request',
+            data: {
+                errors: err.message,
+            },
+        })
+    }
+}
+
+export async function isCategory(id) {
+    const existingData = await Category.findByPk(id, {
+        where: {
+            isActive: true,
+        },
+        raw: true,
+    })
+
+    return existingData
 }

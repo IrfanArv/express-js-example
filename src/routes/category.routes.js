@@ -2,8 +2,9 @@ import { Router } from 'express'
 import {
     create,
     findAll,
-    findByid,
-    updateByid,
+    findOne,
+    updateData,
+    deleteData,
 } from '../controllers/category/index.js'
 import {
     validateName,
@@ -13,6 +14,8 @@ const categoryRoutes = Router()
 
 categoryRoutes.post('/category', validateName, create)
 categoryRoutes.get('/category', findAll)
-categoryRoutes.get('/category/:id', validateId, findByid)
+categoryRoutes.get('/category/:id', validateId, findOne)
+categoryRoutes.patch('/category/:id', validateId, updateData)
+categoryRoutes.delete('/category/:id', validateId, deleteData)
 
 export default categoryRoutes

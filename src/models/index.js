@@ -1,22 +1,24 @@
 import fs from 'fs'
 import path from 'path'
 import Sequelize from 'sequelize'
-import enVariables from '../config/config.json'
+import config from '../config/config.js'
 
 const basename = path.basename(__filename)
 const env = process.env.NODE_ENV || 'development'
-const config = enVariables[env]
 const db = {}
 
 let sequelize
-if (config.use_env_variable) {
-    sequelize = new Sequelize(process.env[config.use_env_variable], config)
+if (config[env].use_env_variable) {
+    sequelize = new Sequelize(
+        process.env[config[env].use_env_variable],
+        config[env],
+    )
 } else {
     sequelize = new Sequelize(
-        config.database,
-        config.username,
-        config.password,
-        config,
+        config[env].database,
+        config[env].username,
+        config[env].password,
+        config[env],
     )
 }
 
@@ -28,7 +30,6 @@ fs.readdirSync(__dirname)
             file.slice(-3) === '.js',
     )
     .forEach((file) => {
-        // eslint-disable-next-line global-require,import/no-dynamic-require
         const model = require(path.join(__dirname, file)).default(
             sequelize,
             Sequelize.DataTypes,

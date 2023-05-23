@@ -24,7 +24,7 @@ Example project use Express js (ES6)
 1. Prettier
 2. Nodemon
 
-### Sequelize CLI
+## Sequelize CLI
 
 1. Documentation `https://sequelize.org/docs/v6/core-concepts/model-querying-basics/`
 2. Install Sequelize global
@@ -36,17 +36,21 @@ Example project use Express js (ES6)
 6. Migrate table
    `sequelize db:migrate`
 
+## NOTE
+
+Every time you make a migration, you must refactor the migration and model file
+
 ## Installation
 
 1. Clone the repository: `git clone https://github.com/IrfanArv/express-js-example.git`
-2. Navigate to the project directory: `cd express-sample`
+2. Navigate to the project directory: `cd express-js-example`
 3. Install the dependencies: `npm install`
 
 ## Usage
 
 1. Configure
     - Copy .env.sample into .env
-    - Create postgres database and configure database in src/config/config.json
+    - Create postgres database and configure your database in .env
     - run migration `sequelize db:migrate`
 2. Start the development server: `npm run dev`
 3. Open Client Api App like postman and hit `http://localhost:5005`
@@ -56,7 +60,7 @@ Example project use Express js (ES6)
 -src
 
 -   config
-    -   configDatabase.js
+    -   config.js
 -   controllers
     -   category
         -   index.js
@@ -73,7 +77,7 @@ Example project use Express js (ES6)
     -   category.js
 -   routes
     -   categoryRoutes.js
-    -   index.js (mapping point tiap module)
+    -   index.js
 -   utils
 -   .env
 -   app.js
