@@ -1,6 +1,4 @@
-# Example App with Express JS
-
-Example project use Express js (ES6)
+# Boilerplate Rest API Express JS ES6
 
 ## Dependencies Usage
 
